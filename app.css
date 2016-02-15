@@ -1,0 +1,21 @@
+﻿body {
+    font-family: 'Segoe UI', sans-serif;
+}
+
+span {
+    font-style: italic;
+}
+
+#navdiv {
+    position: fixed;
+    right: 1em;
+    background-color: white;
+}
+
+#hw2stats {
+    position: fixed;
+    top: 1px;
+    left: 825px;
+    background-color: white;
+    max-width: 25%;
+}

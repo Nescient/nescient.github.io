@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>CIS 600 Homework</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script src="BaseTimer.js"></script>
+    <script src="Hw1Controller.js"></script>
+    <script src="Hw2Controller.js"></script>
+</head>
+<body>
+    <div id="navdiv">
+        <nav>
+            <a href="javascript:load_hw(1);">Homework One</a>
+            <a href="javascript:load_hw(2);">Homework Two</a>
+        </nav>
+        <div id="timediv"><p id="timep"></p></div>
+    </div>
+    <main></main>
+    <script>
+        var hw = "2";
+        if (window.location.hash) {
+            var index = window.location.hash.search("hw");
+            hw = window.location.hash.substring(index + 2);
+        }
+        load_hw(hw);
+        function load_hw(hw) {
+            window.location.href = 'index.html#hw' + hw.toString();
+            document.title = "CIS 600 Homework " + hw.toString();
+            switch (hw.toString()) {
+                case "1":
+                    document.title += " - Henon Map";
+                    var hw = new Hw1Controller("timep");
+                    hw.start();
+                    break;
+                default:
+                case "2":
+                    document.title += " - Rule 110";
+                    new Hw2Controller("timep").start();
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
