@@ -12,6 +12,10 @@ span {
     background-color: white;
 }
 
+    #navdiv li {
+        list-style: none;
+    }
+
 #hw2stats {
     position: fixed;
     top: 1px;
@@ -19,3 +23,16 @@ span {
     background-color: white;
     max-width: 25%;
 }
+
+#hw3stats {
+    position: fixed;
+    top: 1px;
+    left: 825px;
+    background-color: white;
+    max-width: 600px;
+}
+
+    #hw3stats p.long {
+        height: 400px;
+        overflow-y: scroll;
+    }

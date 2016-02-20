@@ -11,18 +11,24 @@
     <script src="BaseTimer.js"></script>
     <script src="Hw1Controller.js"></script>
     <script src="Hw2Controller.js"></script>
+    <script src="Hw3Controller.js"></script>
+    <script src="Hw3ControllerPart2.js"></script>
 </head>
 <body>
     <div id="navdiv">
-        <nav>
-            <a href="javascript:load_hw(1);">Homework One</a>
-            <a href="javascript:load_hw(2);">Homework Two</a>
-        </nav>
         <div id="timediv"><p id="timep"></p></div>
+        <nav>
+            <ul>
+                <li><a href="javascript:load_hw(1);">Homework One</a></li>
+                <li><a href="javascript:load_hw(2);">Homework Two</a></li>
+                <li><a href="javascript:load_hw(3);">Homework Three Part 1</a></li>
+                <li><a href="javascript:load_hw(3.2);">Homework Three Part 2</a></li>
+            </ul>
+        </nav>
     </div>
     <main></main>
     <script>
-        var hw = "2";
+        var hw = "3.2";
         if (window.location.hash) {
             var index = window.location.hash.search("hw");
             hw = window.location.hash.substring(index + 2);
@@ -37,10 +43,18 @@
                     var hw = new Hw1Controller("timep");
                     hw.start();
                     break;
-                default:
                 case "2":
                     document.title += " - Rule 110";
                     new Hw2Controller("timep").start();
+                    break;
+                case "3":
+                    document.title += " - Colored Blair's Rule";
+                    new Hw3Controller("timep").start();
+                    break;
+                default:
+                case "3.2":
+                    document.title += " - Entropy Heat Map";
+                    new Hw3Controllerv2("timep").start();
                     break;
             }
         }

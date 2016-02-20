@@ -2,7 +2,7 @@
 var BaseTimer = (function () {
     function BaseTimer(elementId) {
         this.timeId = elementId;
-        this.timerTimeout = 50;
+        this.timerTimeout = 10;
         this.updateTime();
         return;
     }

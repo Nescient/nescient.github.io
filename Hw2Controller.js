@@ -71,6 +71,7 @@ var Hw2Controller = (function (_super) {
         var states = [false, true, true, true, false, true, true, false];
         var index = (p ? 4 : 0) + (c ? 2 : 0) + (n ? 1 : 0);
         return (index < states.length ? states[index] : false);
+        // or return this.poly(p?1:0,c?1:0,n?1:0) == 1;
     };
     Hw2Controller.prototype.graphRow = function (row, yIndex) {
         var total_width = parseInt(this.svg.style("width"));
@@ -139,6 +140,22 @@ var Hw2Controller = (function (_super) {
         var entropy_p = this.statsBox.append("p");
         entropy_p.text("shannon's entropy: " + (0 - entropy));
         return;
+    };
+    // taken from Blair's ALife1Dim Java program
+    Hw2Controller.prototype.binarize = function (x) {
+        var acc = 0;
+        var den = 0.5;
+        for (var k = 0; k < 14; ++k) {
+            if (acc + den <= x) {
+                acc += den;
+            }
+            den *= 0.5;
+        }
+        return acc;
+    };
+    // taken from Blair's ALife1Dim Java program
+    Hw2Controller.prototype.poly = function (u, x, v) {
+        return this.binarize(0.5 - 0.5 * Math.cos(Math.PI * (x + v - x * v - u * x * v)));
     };
     return Hw2Controller;
 })(BaseTimer);
