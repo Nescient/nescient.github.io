@@ -12,7 +12,9 @@
     <script src="Hw1Controller.js"></script>
     <script src="Hw2Controller.js"></script>
     <script src="Hw3Controller.js"></script>
+    <script src="CaViewer.js"></script>
     <script src="Hw3ControllerPart2.js"></script>
+    <script src="Hw3ControllerFinal.js"></script>
 </head>
 <body>
     <div id="navdiv">
@@ -23,12 +25,14 @@
                 <li><a href="javascript:load_hw(2);">Homework Two</a></li>
                 <li><a href="javascript:load_hw(3);">Homework Three Part 1</a></li>
                 <li><a href="javascript:load_hw(3.2);">Homework Three Part 2</a></li>
+                <li><a href="javascript:load_hw(3.3);">Homework Three Final</a></li>
             </ul>
         </nav>
     </div>
     <main></main>
     <script>
-        var hw = "3.2";
+        var hw = "3.3";
+        var hw_controller = null;
         if (window.location.hash) {
             var index = window.location.hash.search("hw");
             hw = window.location.hash.substring(index + 2);
@@ -51,10 +55,16 @@
                     document.title += " - Colored Blair's Rule";
                     new Hw3Controller("timep").start();
                     break;
-                default:
                 case "3.2":
                     document.title += " - Entropy Heat Map";
-                    new Hw3Controllerv2("timep").start();
+                    hw_controller = new Hw3Controllerv2("timep")
+                    hw_controller.start();
+                    break;
+                default:
+                case "3.3":
+                    document.title += " - Entropy Heat Map";
+                    hw_controller = new Hw3Controllerv3("timep");
+                    hw_controller.start();
                     break;
             }
         }

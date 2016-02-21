@@ -36,3 +36,24 @@ span {
         height: 400px;
         overflow-y: scroll;
     }
+
+.hwstats {
+    position: fixed;
+    top: 1px;
+    left: 825px;
+    background-color: white;
+    max-width: 600px;
+}
+
+    .hwstats p.long {
+        height: 400px;
+        overflow-y: scroll;
+    }
+
+#hw3v2stats {
+    left: 1225px;
+}
+
+#hw3v3stats {
+    left: 1225px;
+}
