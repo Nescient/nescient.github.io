@@ -19,6 +19,16 @@ var ColumnCountv2 = (function () {
     ColumnCountv2.prototype.updateEntropy = function (rowCount) {
         this.entropy[rowCount - 1] = this.getEntropy(rowCount);
     };
+    ColumnCountv2.prototype.getAvgEntropy = function () {
+        if (this.entropy.length > 0) {
+            var mean = 0;
+            for (var i = 0; i < this.entropy.length; ++i) {
+                mean += this.entropy[i];
+            }
+            return mean / this.entropy.length;
+        }
+        return 0;
+    };
     ColumnCountv2.prototype.getEntropyVariance = function () {
         var offset = 0; // throw away everything under 50 timesteps
         if (this.entropy.length <= offset) {
@@ -128,10 +138,12 @@ var CellularAutomatonv2 = (function () {
     CellularAutomatonv2.prototype.getEntropySigma = function () {
         var avg_variance = 0;
         for (var i = 0; i < this.counts.length; ++i) {
-            avg_variance += this.counts[i].getEntropyVariance();
+            // avg_variance += this.counts[i].getEntropyVariance();
+            avg_variance += this.counts[i].getAvgEntropy();
         }
-        avg_variance /= this.counts.length;
-        return Math.sqrt(avg_variance);
+        return avg_variance / this.counts.length;
+        //avg_variance /= this.counts.length;
+        //return Math.sqrt(avg_variance);
     };
     return CellularAutomatonv2;
 })();
@@ -142,7 +154,7 @@ var Hw3Controllerv3 = (function (_super) {
         _super.call(this, elementId);
         //private data: CellularAutomaton[] = [];
         this.increment = 0.05;
-        this.maxEntropy = 2;
+        this.maxEntropy = 10;
         this.minEntropy = 0;
         this.timeStepIndex = 0;
         this.boxCount = 0;
