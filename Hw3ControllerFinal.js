@@ -4,6 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
+var gMinTimeStep = 100; // timesteps below this will not be factored into entropy
 var ColumnCountv2 = (function () {
     function ColumnCountv2(column) {
         this.column = 0;
@@ -30,22 +31,16 @@ var ColumnCountv2 = (function () {
         return 0;
     };
     ColumnCountv2.prototype.getEntropyVariance = function () {
-        var offset = 0; // throw away everything under 50 timesteps
-        if (this.entropy.length <= offset) {
-            return 0;
+        if (this.counts.length > 0) {
+            var mean = this.getAvgEntropy();
+            var variance = 0;
+            for (var i = 0; i < this.entropy.length; ++i) {
+                var delta = this.entropy[i] - mean;
+                variance += (delta * delta);
+            }
+            return variance / this.entropy.length;
         }
-        var mean = 0;
-        for (var i = offset; i < this.entropy.length; ++i) {
-            // mean += this.entropy[i] ? this.entropy[i] : 0;
-            mean += this.entropy[i];
-        }
-        mean /= (this.entropy.length - offset);
-        var variance = 0;
-        for (var i = offset; i < this.entropy.length; ++i) {
-            var delta = this.entropy[i] - mean;
-            variance += (delta * delta);
-        }
-        return variance / (this.entropy.length - offset);
+        return 0;
     };
     ColumnCountv2.prototype.getEntropy = function (rowCount) {
         var entropy = 0;
@@ -73,9 +68,7 @@ var CellularAutomatonv2 = (function () {
         this.b = b;
         this.currentRow = row;
         if (this.currentRow) {
-            //  this.rowCount = 1;
             for (var i = 0; i < this.currentRow.length; ++i) {
-                // this.counts.push(new ColumnCount(i));
                 this.counts[this.counts.length] = new ColumnCountv2(i);
             }
         }
@@ -90,7 +83,7 @@ var CellularAutomatonv2 = (function () {
     CellularAutomatonv2.prototype.makeNewRow = function () {
         if (this.rowCount < gMaxTimeStep) {
             var len = this.currentRow.length;
-            if ((this.rowCount > (gMaxTimeStep / 4)) && (this.getEntropySigma() == 0)) {
+            if ((this.rowCount > (gMaxTimeStep / 4)) && (this.getAvgEntropy() == 0)) {
                 return false;
             }
             var new_row = [];
@@ -117,10 +110,10 @@ var CellularAutomatonv2 = (function () {
     };
     CellularAutomatonv2.prototype.setNextRow = function (row) {
         this.currentRow = row;
-        if (this.ignoreCount <= 100) {
+        if (this.ignoreCount <= gMinTimeStep) {
             ++this.ignoreCount;
         }
-        if (this.ignoreCount > 100) {
+        if (this.ignoreCount > gMinTimeStep) {
             ++this.rowCount;
             this.updateCountsAndEntropy();
         }
@@ -135,15 +128,20 @@ var CellularAutomatonv2 = (function () {
             this.counts[i].updateEntropy(this.rowCount);
         }
     };
-    CellularAutomatonv2.prototype.getEntropySigma = function () {
-        var avg_variance = 0;
+    CellularAutomatonv2.prototype.getAvgEntropy = function () {
+        var avg = 0;
         for (var i = 0; i < this.counts.length; ++i) {
-            // avg_variance += this.counts[i].getEntropyVariance();
-            avg_variance += this.counts[i].getAvgEntropy();
+            avg += this.counts[i].getAvgEntropy();
         }
-        return avg_variance / this.counts.length;
-        //avg_variance /= this.counts.length;
-        //return Math.sqrt(avg_variance);
+        return avg / this.counts.length;
+    };
+    CellularAutomatonv2.prototype.getEntropySigma = function () {
+        var avg = 0;
+        for (var i = 0; i < this.counts.length; ++i) {
+            avg += this.counts[i].getEntropyVariance();
+        }
+        avg /= this.counts.length;
+        return Math.sqrt(avg);
     };
     return CellularAutomatonv2;
 })();
@@ -152,22 +150,20 @@ var Hw3Controllerv3 = (function (_super) {
     function Hw3Controllerv3(elementId) {
         var _this = this;
         _super.call(this, elementId);
-        //private data: CellularAutomaton[] = [];
-        this.increment = 0.05;
+        this.increment = 0.01;
         this.maxEntropy = 10;
         this.minEntropy = 0;
         this.timeStepIndex = 0;
         this.boxCount = 0;
         this.boxSize = 0;
-        //private caView: CaViewer = null;
-        //private caSelected: CellularAutomaton = null;
         this.ca = null;
         this.a = 0;
         this.b = 0;
         this.caIC = [];
         this.doneCAs = [];
+        this.caView = null;
+        this.caSelected = null;
         console.log("constructor");
-        //this.initializeCa();
         var svg_size = length * 3;
         var svg = d3.select("main").append("canvas");
         svg.attr("width", svg_size).attr("height", svg_size);
@@ -203,7 +199,7 @@ var Hw3Controllerv3 = (function (_super) {
     };
     Hw3Controllerv3.prototype.dostuff = function () {
         if (this.ca.makeNewRow()) {
-            var entropy = this.ca.getEntropySigma();
+            var entropy = this.ca.getAvgEntropy();
             if (entropy > this.maxEntropy) {
                 this.maxEntropy = entropy;
             }
@@ -219,7 +215,7 @@ var Hw3Controllerv3 = (function (_super) {
             this.doneCAs.push({
                 a: this.ca.getA(),
                 b: this.ca.getB(),
-                e: this.ca.getEntropySigma()
+                e: this.ca.getAvgEntropy()
             });
             delete this.ca;
             this.ca = this.nextCA();
@@ -255,20 +251,31 @@ var Hw3Controllerv3 = (function (_super) {
     Hw3Controllerv3.prototype.printStats = function (row, col) {
         var index = (row * this.boxCount) + col;
         var cainfo = (this.ca) ?
-            { a: this.ca.getA(), b: this.ca.getB(), e: this.ca.getEntropySigma() } :
+            { a: this.ca.getA(), b: this.ca.getB(), e: this.ca.getAvgEntropy() } :
             { a: -1, b: -1, e: -1 };
         if (row >= 0 && col >= 0 && (index < this.doneCAs.length)) {
             cainfo = this.doneCAs[index];
         }
-        this.statsBox.selectAll("p").remove();
-        var info_p = this.statsBox.append("p");
-        var entropy_p = this.statsBox.append("p");
-        var stats_p = this.statsBox.append("p");
-        var statstr = "row " + row + ", col " + col + " where a=" + cainfo.a + " and b=" + cainfo.b;
-        info_p.text(statstr);
-        entropy_p.text("entropy standard deviation: " + cainfo.e);
-        if (this.ca) {
-            stats_p.text("row count:" + this.ca.rowCount);
+        if (!this.caSelected || this.caSelected.a != cainfo.a || this.caSelected.b != cainfo.b) {
+            this.caSelected = cainfo;
+            this.statsBox.selectAll("p").remove();
+            var info_p = this.statsBox.append("p");
+            var entropy_p = this.statsBox.append("p");
+            var stats_p = this.statsBox.append("p");
+            var statstr = "row " + row + ", col " + col + " where a=" + cainfo.a + " and b=" + cainfo.b;
+            info_p.text(statstr);
+            entropy_p.text("average entropy: " + cainfo.e);
+            if (this.ca) {
+                stats_p.text("row count:" + this.ca.rowCount);
+            }
+            if (this.caView) {
+                this.caView.stop();
+                delete this.caView;
+                this.statsBox.selectAll("canvas").remove();
+            }
+            var svg = this.statsBox.append("canvas").attr("width", length).attr("height", length);
+            this.caView = new CaViewer(svg, length, cainfo.a, cainfo.b);
+            this.caView.start();
         }
         return;
     };

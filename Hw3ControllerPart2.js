@@ -6,7 +6,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
 var length = 400;
-var gMaxTimeStep = 500;
+var gMaxTimeStep = 1000;
 function gRealMod(n, m) {
     // javascript mod doesnt work with negative numbers
     //http://stackoverflow.com/a/17323608
