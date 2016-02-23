@@ -174,7 +174,7 @@ var Hw3Controllerv3 = (function (_super) {
         var ctx = svg.node().getContext('2d');
         ctx.translate(0, svg.node().height);
         ctx.scale(1, -1);
-        this.boxCount = (1 / this.increment) + 1;
+        this.boxCount = (2 / this.increment) + 1;
         this.boxSize = svg_size / this.boxCount;
         svg.on("click", function () { return _this.onMouse(); });
         this.svg = svg;
