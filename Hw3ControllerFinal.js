@@ -125,9 +125,9 @@ var CellularAutomatonv2 = (function () {
     };
     CellularAutomatonv2.prototype.updateCountsAndEntropy = function () {
         for (var i = 0; i < this.currentRow.length; ++i) {
-            var value = gToHexString(this.currentRow[gRealMod(i, this.currentRow.length)]) +
-                gToHexString(this.currentRow[gRealMod(i + 1, this.currentRow.length)]) +
-                gToHexString(this.currentRow[gRealMod(i + 2, this.currentRow.length)]);
+            var value = gToHexString(this.currentRow[gRealMod(i - 1, this.currentRow.length)]) +
+                gToHexString(this.currentRow[gRealMod(i, this.currentRow.length)]) +
+                gToHexString(this.currentRow[gRealMod(i + 1, this.currentRow.length)]);
             this.counts[i].addCount(value);
             this.counts[i].updateEntropy(this.rowCount);
         }

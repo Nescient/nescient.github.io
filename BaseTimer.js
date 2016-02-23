@@ -1,3 +1,4 @@
+// Copyright © Sam Savage 2016
 /// <reference path="Scripts/typings/jquery/jquery.d.ts" />
 var BaseTimer = (function () {
     function BaseTimer(elementId) {
