@@ -122,7 +122,8 @@ var CellularAutomaton = (function () {
     };
     // taken from Blair's ALife1Dim Java program
     CellularAutomaton.prototype.poly = function (a, b, u, x, v) {
-        return (0.5 - 0.5 * Math.cos(Math.PI * (a + (a - b) * v + b * u * v - 2 * u * x * v)));
+        //return (0.5 - 0.5 * Math.cos(Math.PI * (a + (a - b) * v + b * u * v - 2 * u * x * v)));
+	return 0.5 - 0.5*Math.cos(Math.PI*(this.a + (this.a+this.b)*u + (this.a-this.b)*v + this.b*u*v - 2*u*x*v));
     };
     CellularAutomaton.prototype.setNextRow = function (row) {
         this.currentRow = row;
