@@ -57,13 +57,13 @@
                     break;
                 case "3.2":
                     document.title += " - Entropy Heat Map";
-                    hw_controller = new Hw3Controllerv2("timep")
+                    var hw_controller = new Hw3Controllerv2("timep");
                     hw_controller.start();
                     break;
                 default:
                 case "3.3":
                     document.title += " - Entropy Heat Map";
-                    hw_controller = new Hw3Controllerv3("timep");
+                    const hw_controller = new Hw3Controllerv3("timep");
                     hw_controller.start();
                     break;
             }

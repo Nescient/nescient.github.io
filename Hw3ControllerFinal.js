@@ -4,7 +4,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var gMinTimeStep = 100; // timesteps below this will not be factored into entropy
+var gMinTimeStep = 500; // timesteps below this will not be factored into entropy
 var ColumnCountv2 = (function () {
     function ColumnCountv2(column) {
         this.column = 0;
@@ -106,8 +106,11 @@ var CellularAutomatonv2 = (function () {
     };
     // taken from Blair's ALife1Dim Java program
     CellularAutomatonv2.prototype.poly = function (a, b, u, x, v) {
-        //return (0.5 - 0.5 * Math.cos(Math.PI * (a + (a - b) * v + b * u * v - 2 * u * x * v)));
-	return 0.5 - 0.5*Math.cos(Math.PI*(this.a + (this.a+this.b)*u + (this.a-this.b)*v + this.b*u*v - 2*u*x*v));
+        return (0.5 - 0.5 * Math.cos(Math.PI *
+            (a + (a + b) * u +
+                (a - b) * v +
+                b * u * v -
+                2 * u * x * v)));
     };
     CellularAutomatonv2.prototype.setNextRow = function (row) {
         this.currentRow = row;
@@ -151,7 +154,7 @@ var Hw3Controllerv3 = (function (_super) {
     function Hw3Controllerv3(elementId) {
         var _this = this;
         _super.call(this, elementId);
-        this.increment = 0.01;
+        this.increment = 0.05;
         this.maxEntropy = 10;
         this.minEntropy = 0;
         this.timeStepIndex = 0;
@@ -267,7 +270,7 @@ var Hw3Controllerv3 = (function (_super) {
             info_p.text(statstr);
             entropy_p.text("average entropy: " + cainfo.e);
             if (this.ca) {
-                stats_p.text("row count:" + this.ca.rowCount);
+                stats_p.text("row count: " + this.ca.rowCount + "(" + this.ca.ignoreCount + ")");
             }
             if (this.caView) {
                 this.caView.stop();
@@ -277,6 +280,18 @@ var Hw3Controllerv3 = (function (_super) {
             var svg = this.statsBox.append("canvas").attr("width", length).attr("height", length);
             this.caView = new CaViewer(svg, length, cainfo.a, cainfo.b);
             this.caView.start();
+        }
+        else {
+            var row_count = this.ca ? this.ca.rowCount : -1;
+            var ignore_count = this.ca ? this.ca.ignoreCount : -1;
+            this.statsBox.selectAll("p")[0].map(function (d, i) {
+                if (d.textContent.indexOf("entropy") != -1) {
+                    d.textContent = ("average entropy: " + cainfo.e);
+                }
+                else if (d.textContent.indexOf("row count") != -1) {
+                    d.textContent = ("row count: " + row_count + "(" + ignore_count + ")");
+                }
+            });
         }
         return;
     };

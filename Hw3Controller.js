@@ -75,8 +75,11 @@ var Hw3Controller = (function (_super) {
     };
     // taken from Blair's ALife1Dim Java program
     Hw3Controller.prototype.poly = function (u, x, v) {
-        //return (0.5 - 0.5 * Math.cos(Math.PI * (this.a + (this.a - this.b) * v + this.b * u * v - 2 * u * x * v)));
-	return 0.5 - 0.5*Math.cos(Math.PI*(this.a + (this.a+this.b)*u + (this.a-this.b)*v + this.b*u*v - 2*u*x*v));
+        return (0.5 - 0.5 * Math.cos(Math.PI *
+            (this.a + (this.a + this.b) * u +
+                (this.a - this.b) * v +
+                this.b * u * v -
+                2 * u * x * v)));
     };
     Hw3Controller.prototype.toHexString = function (val) {
         var hexstring = Math.round(val * 0xFFFFFF).toString(16);
