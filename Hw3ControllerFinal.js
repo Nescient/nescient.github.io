@@ -240,9 +240,9 @@ var Hw3Controllerv3 = (function (_super) {
     };
     Hw3Controllerv3.prototype.nextCA = function () {
         var ca = null;
-        if (this.b < 1) {
+        if (this.b <= 2) {
             ca = new CellularAutomatonv2(this.a, this.b, this.caIC);
-            if (this.a < 1) {
+            if (this.a <= 2) {
                 this.a = parseFloat((this.a + this.increment).toFixed(3));
             }
             else {
