@@ -41,10 +41,11 @@
         function load_hw(hw) {
             window.location.href = 'index.html#hw' + hw.toString();
             document.title = "CIS 600 Homework " + hw.toString();
+            var hw_controller = null;
             switch (hw.toString()) {
                 case "1":
                     document.title += " - Henon Map";
-                    var hw = new Hw1Controller("timep");
+                    hw_controller = new Hw1Controller("timep");
                     hw.start();
                     break;
                 case "2":
@@ -53,17 +54,18 @@
                     break;
                 case "3":
                     document.title += " - Colored Blair's Rule";
-                    new Hw3Controller("timep").start();
+                    hw_controller = new Hw3Controller("timep");
+                    hw_controller.start();
                     break;
                 case "3.2":
                     document.title += " - Entropy Heat Map";
-                    var hw_controller = new Hw3Controllerv2("timep");
+                    hw_controller = new Hw3Controllerv2("timep");
                     hw_controller.start();
                     break;
                 default:
                 case "3.3":
                     document.title += " - Entropy Heat Map";
-                    const hw_controller = new Hw3Controllerv3("timep");
+                    hw_controller = new Hw3Controllerv3("timep");
                     hw_controller.start();
                     break;
             }
