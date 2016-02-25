@@ -210,9 +210,9 @@ var Hw3Controllerv3 = (function (_super) {
             if (entropy < this.minEntropy) {
                 this.minEntropy = entropy;
             }
-            if (this.maxEntropy != this.minEntropy) {
-                entropy = (entropy - this.minEntropy) / (this.maxEntropy - this.minEntropy);
-            }
+            // if (this.maxEntropy != this.minEntropy) {
+            //     entropy = (entropy - this.minEntropy) / (this.maxEntropy - this.minEntropy);
+            //   }
             this.graphHeatMap(entropy, this.ca.getA() / this.increment, this.ca.getB() / this.increment, "#0000" + gToBlueHexString(entropy));
         }
         else {

@@ -240,9 +240,9 @@ var Hw3Controllerv2 = (function (_super) {
         if (entropy < this.minEntropy) {
             this.minEntropy = entropy;
         }
-        if (this.maxEntropy != this.minEntropy) {
-            entropy = (entropy - this.minEntropy) / (this.maxEntropy - this.minEntropy);
-        }
+        //if (this.maxEntropy != this.minEntropy) {
+        //    entropy = (entropy - this.minEntropy) / (this.maxEntropy - this.minEntropy);
+        //}
         this.graphHeatMap(entropy, ca.getA() / this.increment, ca.getB() / this.increment, 
         //"#" + gToGrayHexString(Math.round(entropy * 100) / 100)
         "#0000" + gToBlueHexString(entropy));
