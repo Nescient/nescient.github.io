@@ -23,7 +23,7 @@ function gToGrayHexString(val) {
     return hexstring;
 }
 function gToBlueHexString(val) {
-    var hexstring = Math.round(Math.min(val * 0xFF, 0xFF)).toString(16);
+    var hexstring = Math.round(Math.min(val / 0xFF, 0xFF)).toString(16);
     hexstring = (hexstring.length < 2) ? "00".substr(hexstring.length - 2) + hexstring : hexstring;
     return hexstring;
 }
