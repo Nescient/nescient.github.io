@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Circles of Life</title>
+	<meta charset="utf-8" />
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="data.js"></script>
+</head>
+<body>
+    <a id="leftlink" href="#" style="float:left">&larr;</a>
+    <a id="rightlink" href="#" style="float:right">&rarr;</a>
+    <center id="content">
+    </center>
+    <div id="text">
+        <h1></h1>
+        <p></p>
+    </div>
+</body>
+<script>
+    var idstring = location.search;
+    var idstringsplit = idstring ? idstring.split("=") : idstring;
+    var id = (idstringsplit && idstringsplit.length && idstringsplit.length > 1) ? Number.parseInt(idstringsplit[1]) : 1;
+    var img = imgs[id - 1];
+    console.log(id);
+    console.log(img);
+    console.log(imgs);
+    var img_el = document.createElement('img');
+    img_el.src = img.fileName;
+    img_el.alt = img.getTitle();
+    $("#content").append(img_el);
+    $("#text > h1").text(img.getTitle());
+    $("#text > p").text(img.description);
+
+    $("#leftlink").attr("href", "/detail.html?id=" + (id - 1).toString());
+    $("#rightlink").attr("href", "/detail.html?id=" + (id + 1).toString());
+</script>
+</html>
