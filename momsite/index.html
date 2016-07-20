@@ -7,8 +7,24 @@
     <link rel="stylesheet" href="app.css" type="text/css" />
     <script src="data.js"></script>
     <script src="app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+    <!-- Start VisualLightBox.com HEAD section -->
+    <link rel="stylesheet" href="http://visuallightbox.com/images/demo/dominion/index_files/vlb_files1/vlightbox1.css" type="text/css" />
+    <link rel="stylesheet" href="http://visuallightbox.com/images/demo/dominion/index_files/vlb_files1/visuallightbox.css" type="text/css" media="screen" />
+    <script src="http://visuallightbox.com/images/demo/jquery.min.js" type="text/javascript"></script>
+    <script src="http://visuallightbox.com/images/demo/visuallightbox.js" type="text/javascript"></script>
+    <!-- End VisualLightBox.com HEAD section -->
+    <!--load header-->
+    <script>
+        $(function () {
+            // source: http://stackoverflow.com/a/9003363
+            $("#headerDiv").load("header.html");
+        });
+    </script>
 </head>
 <body>
+    <div id="headerDiv"></div>
     <!--<h1>TypeScript HTML App</h1>
     <div id="content"></div>-->
     <center id="content">
@@ -63,5 +79,17 @@
             </li>
         </ul>
     </div>
+
+    <!-- Start VisualLightBox.com BODY section id=1 -->
+    <div id="vlightbox1" align="center">
+        <a class="vlightbox1" href="image1.jpg" title="Summer Fruits"><img src="image1.jpg" alt="Summer Fruits" /></a>
+        <a class="vlightbox1" href="image2.jpg" title="Five strawberies one star"><img src="image2.jpg" alt="Five strawberies one star" /></a>
+        <a class="vlightbox1" href="image3.jpg" title="Fruit of the season"><img src="image3.jpg" alt="Fruit of the season" /></a>
+        <a class="vlightbox1" href="image4.jpg" title="Bright fruit"><img src="image4.jpg" alt="Bright fruit" /></a>
+        <a class="vlightbox1" href="image5.jpg" title="The velvety looking peaches and the shiny strawberries."><img src="image5.jpg" alt="The velvety looking peaches and the shiny strawberries." /></a>
+        <a class="vlb" href="http://visuallightbox.com">lightbox jquery</a>
+    </div>
+    <script src="http://visuallightbox.com/images/demo/dominion/index_files/vlb_engine/vlbdata1.js" type="text/javascript"></script>
+    <!-- End VisualLightBox.com BODY section -->
 </body>
 </html>

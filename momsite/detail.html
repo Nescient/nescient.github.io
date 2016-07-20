@@ -1,12 +1,21 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="utf-8" />
     <title>Circles of Life</title>
-	<meta charset="utf-8" />
+    <link rel="stylesheet" href="app.css" type="text/css" />
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="data.js"></script>
+    <!--load header-->
+    <script>
+        $(function () {
+            // source: http://stackoverflow.com/a/9003363
+            $("#headerDiv").load("header.html");
+        });
+    </script>
 </head>
 <body>
+    <div id="headerDiv"></div>
     <a id="leftlink" href="#" style="float:left">&larr;</a>
     <a id="rightlink" href="#" style="float:right">&rarr;</a>
     <center id="content">
@@ -31,7 +40,7 @@
     $("#text > h1").text(img.getTitle());
     $("#text > p").text(img.description);
 
-    $("#leftlink").attr("href", "/momsite/detail.html?id=" + (id - 1).toString());
-    $("#rightlink").attr("href", "/momsite/detail.html?id=" + (id + 1).toString());
+    $("#leftlink").attr("href", "/detail.html?id=" + (id - 1).toString());
+    $("#rightlink").attr("href", "/detail.html?id=" + (id + 1).toString());
 </script>
 </html>

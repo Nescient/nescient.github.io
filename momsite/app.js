@@ -26,7 +26,7 @@ window.onload = function () {
         //    window.location.href = '/detail?id=' + img.imageId;
         //});
         var link_el = document.createElement("a");
-        link_el.href = "/momsite/detail.html?id=" + img.imageId.toString();
+        link_el.href = "/detail.html?id=" + img.imageId.toString();
         link_el.appendChild(img_el);
         el.appendChild(link_el);
     }

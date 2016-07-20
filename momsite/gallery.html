@@ -1,0 +1,78 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Circles of Life Gallary</title>
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="data.js"></script>
+    <!--load header-->
+    <script>
+        $(function () {
+            // source: http://stackoverflow.com/a/9003363
+            $("#headerDiv").load("header.html");
+        });
+    </script>
+</head>
+<body style="background:black">
+    <div id="headerDiv"></div>
+    <center>
+        <div style="max-width:1024px">
+            <div id="leftnav"></div>
+            <div id="rightnav"></div>
+            <div id="centerimage"></div>
+
+            <div id="detailsdiv">
+                <h1>Image Title</h1>
+                <p style="color:white">Image Description</p>
+            </div>
+        </div>
+    </center>
+</body>
+<script>
+    function addImageToDiv(img, div, link, selected) {
+
+
+        $('<a/>', {
+            'href': link,
+            html: $('<img/>', {
+                'src': img.fileName,
+                'alt': img.getTitle(),
+                'class': selected ? "selected" : ""
+            }
+            )
+
+        }).appendTo(div);
+
+
+        //<a class="vlightbox1" href="image1.jpg"
+        //var img_el = document.createElement('img');
+        //img_el.src = img.fileName;
+        //img_el.alt = img.getTitle();
+        //div.append(img_el);
+        return;
+    }
+    var idstring = location.search;
+    var idstringsplit = idstring ? idstring.split("=") : idstring;
+    var id = (idstringsplit && idstringsplit.length && idstringsplit.length > 1) ? Number.parseInt(idstringsplit[1]) : 1;
+    var img = imgs[id - 1];
+    console.log(id);
+    console.log(img);
+    console.log(imgs);
+    var img_el = document.createElement('img');
+    img_el.src = img.fileName;
+    img_el.alt = img.getTitle();
+    $("#centerimage").append(img_el);
+    $("#detailsdiv > h1").text(img.getTitle());
+    $("#detailsdiv > p").text(img.description);
+
+    for (var index in imgs) {
+        var img_id = (Number.parseInt(index) + 1);
+        var img = imgs[index];
+        addImageToDiv(img, index < 8 ? $("#leftnav") : $("#rightnav"), "/gallery.html?id=" + img_id.toString(), img_id === id);
+    }
+
+    //$("#leftlink").attr("href", "/gallery.html?id=" + (id - 1).toString());
+    //$("#rightlink").attr("href", "/gallery.html?id=" + (id + 1).toString());
+</script>
+</html>
