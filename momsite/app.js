@@ -20,8 +20,8 @@ window.onload = function () {
     for (var index in imgs) {
         var img = imgs[index];
         var img_el = document.createElement('img');
-        img_el.src = img.fileName;
-        img_el.alt = img.getTitle();
+        //img_el.src = img.fileName;
+        //img_el.alt = img.getTitle();
         //img_el.addEventListener("click", function () {
         //    window.location.href = '/detail?id=' + img.imageId;
         //});
