@@ -19,4 +19,21 @@ var imgs = [new MomsImage(1), new MomsImage(2), new MomsImage(3),
     new MomsImage(16), new MomsImage(17), new MomsImage(18),
     new MomsImage(19), new MomsImage(20), new MomsImage(21),
     new MomsImage(22), new MomsImage(23)];
+var OtherImage = (function () {
+    function OtherImage(id) {
+        this.imageId = id;
+    }
+    OtherImage.prototype.getImageFileName = function () {
+        return "reviews/" + this.imageId.toString() + ((this.imageId == 9) ? ".jpg" : ".png");
+    };
+    OtherImage.prototype.getDescriptionFileName = function () {
+        return "reviews/" + this.imageId.toString() + ".htm";
+    };
+    return OtherImage;
+}());
+var testimonials = [new OtherImage(1), new OtherImage(2), new OtherImage(3),
+    new OtherImage(4), new OtherImage(5), null, new OtherImage(7),
+    new OtherImage(8), new OtherImage(9), new OtherImage(10),
+    new OtherImage(11), new OtherImage(12), null, new OtherImage(14),
+    new OtherImage(15), null, new OtherImage(17), new OtherImage(18)];
 //# sourceMappingURL=data.js.map

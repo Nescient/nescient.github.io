@@ -1,0 +1,21 @@
+﻿<!--Copyright © Sam Savage 2016-->
+<!--<h1>Circles of Life</h1>-->
+<ul class="navigationmenu">
+    <li><a href="/"><b>Circles of Life</b></a></li>
+    <li><a href="gallery.html">Product Gallery</a></li>
+    <li><a href="testimonials.html">User Gallery</a></li>
+    <li><a href="news.html">News</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="about.html">About</a></li>
+    <li style="float:right" class="icon">
+        <a href="javascript:void(0);" style="font-size:15px;" onclick="showNavigationMenu()">☰</a>
+    </li>
+    <li style="float:right"><a href="cart.html" id="viewCart" >View Cart (<span class="simpleCart_quantity"></span>)</a></li>
+</ul>
+<script>
+    function showNavigationMenu() {
+        // source: http://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_topnav
+        document.getElementsByClassName("navigationmenu")[0].classList.toggle("responsive");
+        return;
+    }
+</script>

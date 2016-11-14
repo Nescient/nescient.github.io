@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<!--Copyright © Sam Savage 2016-->
+<html>
+<head>
+    <title>Circles of Life Cart</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="data.js"></script>
+    <script src="simpleCart.min.js"></script>
+    <!--load header-->
+    <script>
+        $(function () {
+            // source: http://stackoverflow.com/a/9003363
+            $("#headerDiv").load("header.html", function () {
+                $("#viewCart").remove();
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="headerDiv"></div>
+    <!--<div class="simpleCart_items"></div>-->
+    
+
+    <center>
+        <div style="max-width:1280px">
+            <div style="float:left"><strong>Items: </strong><span class="simpleCart_quantity"></span></div>
+            <div style="float:right"><strong>Total: </strong><span class="simpleCart_total"></span></div>
+
+            <a href="javascript:;" class="simpleCart_empty" style="color:white">Empty Cart</a>
+
+            <div class="simpleCart_items"></div>
+
+            <div id="emptyCartDisplay" style="display:none">
+            <h1>Your Shopping Cart is empty.</h1>
+            <h1>Select the Product Gallery above to view Items for sale.</h1>
+            </div>
+            <!--<ul id="cartList">
+                <li>some stuff</li>
+            </ul>-->
+            <div style="margin: 10px"><strong>Grand Total:</strong> <span class="simpleCart_grandTotal"></span></div>
+            <!--<a href="javascript:;" class="simpleCart_checkout">Checkout</a>-->
+
+
+            <form id="contact" method="post" action="" style="margin:10px">
+                <fieldset>
+                    <h3>Please enter your contact information to place the order.  You will be emailed for payment information.</h3>
+                    <label for="name">First Name</label>
+                    <input type="text" name="first name" placeholder="First Name" title="Enter your First Name" class="required" id="first_name">
+                    <label for="name">Last Name</label>
+                    <input type="text" name="last name" placeholder="Last Name" title="Enter your Last Name" class="required" id="last_name">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" placeholder="yourname@domain.com" title="Enter your e-mail address" class="required email" id="email">
+                    <label for="phone">Phone</label>
+                    <input type="tel" name="phone" placeholder="Optional" id="phone"> <label for="message">Comment</label>
+                    <textarea name="message" placeholder="Optional" id="comments"></textarea>
+                </fieldset>
+            </form>
+            <span class="checkout_btn">Send Order</span>
+        </div>
+    </center>
+    <!--<div></div>
+    <div class="simpleCart_items">itemss</div>
+    <div class="cartInfo"><span class="simpleCart_quantity"></span> items</div>
+    <a href="javascript:;" class="simpleCart_empty">empty</a>
+    <div id="cartPopover" style="display: none;">
+        <div id="triangle">▲</div>
+        <div class="simpleCart_items"></div>
+        <div id="cartData" class="clearfix">
+            <div class="left"><strong>Items: </strong><span class="simpleCart_quantity"></span></div>
+            <div class="right"><strong>Total: </strong><span class="simpleCart_total"></span></div>
+        </div>
+        <div id="popoverButtons" class="clearfix">
+            <a href="/cart/" class="hudbtn left">View</a>
+            <a href="javascript:;" class="simpleCart_checkout hudbtn primary right">Checkout</a>
+        </div>
+    </div>-->
+</body>
+<script>
+    simpleCart.each(function (item, x) {
+        var li_el = document.createElement('li');
+        li_el.innerHTML(item.toString());
+        $("#cartList").append(li_el);
+    });
+
+    simpleCart({
+        //Setting the Cart Columns for the sidebar cart display.
+        cartColumns: [
+        //{ attr: "image", label: false, view: "image"},
+
+        //Name of the item
+        { attr: "name", label: "Item" },
+
+        { attr: "size", label: false },
+
+        //Quantity displayed as an input
+        { attr: "quantity", label: "Quantity", view: "input" },
+
+        //Built in view for a remove link
+        { view: 'remove', text: "X", label: "Del" },
+
+        //Price of item
+        //{ attr: "price", label: "Price", view: "currency"},
+
+        //Subtotal of that row (quantity of that item * the price)
+        { attr: "total", label: "Sub-Total", view: "currency" }
+
+        ],
+        cartStyle: "table",
+        checkout: {
+            type: "SendForm",
+            url: "sendcart.php",
+            method: "POST",
+            success: "success.html",
+            cancel: "cancel.php",
+            extra_data: {
+                first_name: document.getElementById("first_name").value,
+                last_name: document.getElementById("last_name").value,
+                email: document.getElementById("email").value,
+                email: document.getElementById("phone").value,
+                email: document.getElementById("comments").value,
+                cartid: "12321321"
+            }
+
+        }
+
+    });
+
+    simpleCart.bind('beforeCheckout', function (data) {
+        data.first_name = document.getElementById("first_name").value;
+        data.last_name = document.getElementById("last_name").value;
+        data.email = document.getElementById("email").value;
+        data.phone = document.getElementById("phone").value;
+        data.comments = document.getElementById("comments").value;
+    });
+
+    /* if the cart is empty */
+    simpleCart.bind('update', function () {
+        if (simpleCart.quantity() <= 0) {
+            //alert(simpleCart.quantity())
+            $(".simpleCart_items").hide();
+            $("#emptyCartDisplay").show();
+        }
+        else {
+            $(".simpleCart_items").show();
+            $("#emptyCartDisplay").hide();
+        }
+    });
+</script>
+</html>

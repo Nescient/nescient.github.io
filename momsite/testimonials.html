@@ -2,14 +2,12 @@
 <!--Copyright © Sam Savage 2016-->
 <html>
 <head>
+    <title>Circles of Life Testimonials</title>
     <meta charset="utf-8" />
-    <title>Circles of Life Gallery</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
     <script src="data.js"></script>
     <script src="simpleCart.min.js"></script>
-    <!--<script src="http://mrcoles.com/media/js/scroll-sneak.js"></script>-->
-    <!--load header-->
     <script>
         $(function () {
             // source: http://stackoverflow.com/a/9003363
@@ -24,16 +22,6 @@
             },
             cartStyle: "table"
         });
-
-        simpleCart.bind('beforeAdd', function (item) {
-            if (item.get('size') == 'Card') {
-                item.price(5.99);
-            } else if (item.get('size') == 'Medium Print') {
-                item.price(35.99);
-            } else if (item.get('size') == 'Large Print') {
-                item.price(123.99);
-            }
-        });
     </script>
 </head>
 <body>
@@ -45,25 +33,13 @@
             <div id="centerimage"></div>
 
             <div id="detailsdiv">
-                <div class="simpleCart_shelfItem">
-                    <p>
-                        <select class="item_size" style="background:black; color:white">
-                            <option value="Card"> Card for <span class="item_price">$5.99</span> </option>
-                            <option value="Medium Print"> 11x11 Print for <span class="item_price">$35.99</span> </option>
-                            <option value="Large Print"> 18x18 Print for <span class="item_price">$123.99</span> </option>
-                        </select>
-                        <input style="background:black; color:white; max-width: 50px" value="1" class="item_Quantity" type="number" min="1" max="100">
-                        <a style="color:white" class="item_add" href="javascript:;"> Add to Cart </a>
-                    </p>
-                    <h1 class="item_name">Image Title</h1>
-                </div>
+                <h1>Image Title</h1>
                 <div style="text-align: left" class="description">Image Description</div>
             </div>
         </div>
     </center>
     <!--a modal window:  http://www.w3schools.com/howto/howto_css_modal_images.asp-->
     <div id="galleryModal" class="modal" onclick="document.getElementById('galleryModal').style.display = 'none'">
-        <!--<span class="modal-close" onclick="document.getElementById('galleryModal').style.display = 'none'">&times;</span>-->
         <img class="modal-content" />
         <div class="modal-caption"></div>
     </div>
@@ -86,6 +62,7 @@
 
     /* this function adds a new thumbnail to the columns */
     function addImageToDiv(img, div, link, selected) {
+        console.log(img);
         /* add the gallery link to the thumbnails */
         var link_element =
         $('<a/>', {
@@ -112,19 +89,22 @@
     var idstring = location.search;
     var idstringsplit = idstring ? idstring.split("=") : idstring;
     var id = (idstringsplit && idstringsplit.length && idstringsplit.length > 1) ? Number.parseInt(idstringsplit[1]) : 1;
-    var img = imgs[id - 1];
+    if (testimonials[id - 1] == null) {
+        id = 1;
+    }
+    var img = testimonials[id - 1];
 
     /* add the image to the center element */
     var img_el = document.createElement('img');
     img_el.src = img.getImageFileName();
-    img_el.alt = "gallery image " + id.toString();
+    img_el.alt = "Testimonial Image " + id.toString();
     $("#centerimage").append(img_el);
 
     /* load the description for the current image */
     $("#detailsdiv > div.description").load(img.getDescriptionFileName() + " .MsoNormal",
         function (resp, status) {
             if (status == "error") {
-                $("#detailsdiv > div > h1").text("Gallery Image " + id.toString());
+                $("#detailsdiv > h1").text("Testimonial Image " + id.toString());
                 $("#detailsdiv > div.description").remove();
             }
             else {
@@ -132,16 +112,18 @@
                 var title = $("#detailsdiv > div.description").find(".MsoNormal:first-child");
                 var title_string = title.html();
                 title.remove();
-                $("#detailsdiv > div > h1").html(title_string);
+                $("#detailsdiv > h1").html(title_string);
                 $("#galleryModal > .modal-caption").html(title_string);
             }
         });
 
     /* add all the images to the left and right columns */
-    for (var index in imgs) {
+    for (var index in testimonials) {
         var img_id = (Number.parseInt(index) + 1);
-        var img = imgs[index];
-        addImageToDiv(img, index < (imgs.length / 2) ? $("#leftnav") : $("#rightnav"), "gallery.html?id=" + img_id.toString(), img_id === id);
+        var img = testimonials[index];
+        if (img) {
+            addImageToDiv(img, index < (testimonials.length / 2) ? $("#leftnav") : $("#rightnav"), "testimonials.html?id=" + img_id.toString(), img_id === id);
+        }
     }
 
     /* scroll the window down */
@@ -151,19 +133,10 @@
     }
 
     /* set the current image to use the modal when clicked */
-    $("#galleryModal > .modal-content").attr("src", imgs[id - 1].getImageFileName());
+    $("#galleryModal > .modal-content").attr("src", testimonials[id - 1].getImageFileName());
     $("#centerimage").click(function () {
         $("#galleryModal").show();
     });
-
-    /* set up the shopping cart */
-    //simpleCart({
-    //    checkout: {
-    //        type: "PayPal",
-    //        email: "you@yours.com"
-    //    },
-    //    cartStyle: "table"
-    //});
 
 </script>
 </html>

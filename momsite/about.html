@@ -1,0 +1,30 @@
+﻿<!DOCTYPE html>
+<!--Copyright © Sam Savage 2016-->
+<html>
+<head>
+    <title>About Circles of Life</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="app.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+    <script src="simpleCart.min.js"></script>
+    <script>
+        $(function () {
+            // source: http://stackoverflow.com/a/9003363
+            $("#headerDiv").load("header.html", function () {
+                $("#viewCart > .simpleCart_quantity").text(simpleCart.quantity().toString());
+            });
+        });
+        simpleCart({
+            checkout: {
+                type: "PayPal",
+                email: "you@yours.com"
+            },
+            cartStyle: "table"
+        });
+    </script>
+</head>
+<body>
+    <div id="headerDiv"></div>
+    <h1>This site is under construction.</h1>
+</body>
+</html>
