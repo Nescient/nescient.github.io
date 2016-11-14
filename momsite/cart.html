@@ -16,12 +16,22 @@
                 $("#viewCart").remove();
             });
         });
+        simpleCart({
+            checkout: {
+                type: "PayPal",
+                email: "antimetabole-facilitator@gmail.com",
+                sandbox: true,
+                success: "cart.html?order=complete",
+                cancel: "cart.html"
+            },
+            cartStyle: "table"
+        });
     </script>
 </head>
 <body>
     <div id="headerDiv"></div>
     <!--<div class="simpleCart_items"></div>-->
-    
+
 
     <center>
         <div style="max-width:1280px">
@@ -33,19 +43,17 @@
             <div class="simpleCart_items"></div>
 
             <div id="emptyCartDisplay" style="display:none">
-            <h1>Your Shopping Cart is empty.</h1>
-            <h1>Select the Product Gallery above to view Items for sale.</h1>
+                <h1>Your Shopping Cart is empty.</h1>
+                <h1>Select the Product Gallery above to view Items for sale.</h1>
             </div>
             <!--<ul id="cartList">
                 <li>some stuff</li>
             </ul>-->
             <div style="margin: 10px"><strong>Grand Total:</strong> <span class="simpleCart_grandTotal"></span></div>
             <!--<a href="javascript:;" class="simpleCart_checkout">Checkout</a>-->
-
-
-            <form id="contact" method="post" action="" style="margin:10px">
+            <!--<form id="contact" method="post" action="" style="margin:10px">
                 <fieldset>
-                    <h3>Please enter your contact information to place the order.  You will be emailed for payment information.</h3>
+                    <h3>Please enter your contact information to place the order.  You will be emailed for payment information and order confirmation.</h3>
                     <label for="name">First Name</label>
                     <input type="text" name="first name" placeholder="First Name" title="Enter your First Name" class="required" id="first_name">
                     <label for="name">Last Name</label>
@@ -57,7 +65,8 @@
                     <textarea name="message" placeholder="Optional" id="comments"></textarea>
                 </fieldset>
             </form>
-            <span class="checkout_btn">Send Order</span>
+            <span class="checkout_btn">Send Order</span>-->
+            <a style="color:white" href="javascript:;" class="simpleCart_checkout">Checkout</a>
         </div>
     </center>
     <!--<div></div>
@@ -78,11 +87,30 @@
     </div>-->
 </body>
 <script>
-    simpleCart.each(function (item, x) {
-        var li_el = document.createElement('li');
-        li_el.innerHTML(item.toString());
-        $("#cartList").append(li_el);
-    });
+    /* parse the parameters */
+    //source:  http://stackoverflow.com/a/2880929
+    var urlParams;
+    (window.onpopstate = function () {
+        var match,
+            pl = /\+/g,  // Regex for replacing addition symbol with a space
+            search = /([^&=]+)=?([^&]*)/g,
+            decode = function (s) { return decodeURIComponent(s.replace(pl, " ")); },
+            query = window.location.search.substring(1);
+
+        urlParams = {};
+        while (match = search.exec(query))
+            urlParams[decode(match[1])] = decode(match[2]);
+    })();
+    if (urlParams["order"] == "complete") {
+        alert("order complete, clearing chart");
+        simpleCart.empty();
+    }
+
+    //simpleCart.each(function (item, x) {
+    //    var li_el = document.createElement('li');
+    //    li_el.innerHTML(item.toString());
+    //    $("#cartList").append(li_el);
+    //});
 
     simpleCart({
         //Setting the Cart Columns for the sidebar cart display.
@@ -92,7 +120,7 @@
         //Name of the item
         { attr: "name", label: "Item" },
 
-        { attr: "size", label: false },
+        { attr: "type", label: false },
 
         //Quantity displayed as an input
         { attr: "quantity", label: "Quantity", view: "input" },
@@ -109,31 +137,36 @@
         ],
         cartStyle: "table",
         checkout: {
-            type: "SendForm",
-            url: "sendcart.php",
-            method: "POST",
-            success: "success.html",
-            cancel: "cancel.php",
-            extra_data: {
-                first_name: document.getElementById("first_name").value,
-                last_name: document.getElementById("last_name").value,
-                email: document.getElementById("email").value,
-                email: document.getElementById("phone").value,
-                email: document.getElementById("comments").value,
-                cartid: "12321321"
-            }
-
+            type: "PayPal",
+            email: "antimetabole-facilitator@gmail.com",
+            sandbox: true
         }
+        //checkout: {
+        //    type: "SendForm",
+        //    url: "http://www.w3schools.com/tags/demo_form_method_post.asp",
+        //    method: "POST",
+        //    success: "success.html",
+        //    cancel: "cancel.php",
+        //    extra_data: {
+        //        first_name: document.getElementById("first_name").value,
+        //        last_name: document.getElementById("last_name").value,
+        //        email: document.getElementById("email").value,
+        //        email: document.getElementById("phone").value,
+        //        email: document.getElementById("comments").value,
+        //        cartid: "12321321"
+        //    }
+
+        //}
 
     });
 
-    simpleCart.bind('beforeCheckout', function (data) {
-        data.first_name = document.getElementById("first_name").value;
-        data.last_name = document.getElementById("last_name").value;
-        data.email = document.getElementById("email").value;
-        data.phone = document.getElementById("phone").value;
-        data.comments = document.getElementById("comments").value;
-    });
+    //simpleCart.bind('beforeCheckout', function (data) {
+    //    data.first_name = document.getElementById("first_name").value;
+    //    data.last_name = document.getElementById("last_name").value;
+    //    data.email = document.getElementById("email").value;
+    //    data.phone = document.getElementById("phone").value;
+    //    data.comments = document.getElementById("comments").value;
+    //});
 
     /* if the cart is empty */
     simpleCart.bind('update', function () {
