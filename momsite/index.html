@@ -2,95 +2,42 @@
 <!--Copyright © Sam Savage 2016-->
 <html lang="en">
 <head>
-    <meta http-equiv="refresh" content="0; url=gallery.html" />
     <meta charset="utf-8" />
     <title>Circles of Life</title>
     <link rel="stylesheet" href="app.css" type="text/css" />
     <script src="data.js"></script>
     <script src="app.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-
-    <!-- Start VisualLightBox.com HEAD section -->
-    <link rel="stylesheet" href="http://visuallightbox.com/images/demo/dominion/index_files/vlb_files1/vlightbox1.css" type="text/css" />
-    <link rel="stylesheet" href="http://visuallightbox.com/images/demo/dominion/index_files/vlb_files1/visuallightbox.css" type="text/css" media="screen" />
-    <script src="http://visuallightbox.com/images/demo/jquery.min.js" type="text/javascript"></script>
-    <script src="http://visuallightbox.com/images/demo/visuallightbox.js" type="text/javascript"></script>
-    <!-- End VisualLightBox.com HEAD section -->
+    <script src="simpleCart.min.js"></script>
     <!--load header-->
     <script>
         $(function () {
             // source: http://stackoverflow.com/a/9003363
-            $("#headerDiv").load("header.html");
+            $("#headerDiv").load("header.html", function () {
+                $("#viewCart > span").text("$"+simpleCart.grandTotal().toString());
+            });
         });
+        simpleCart({ cartStyle: "table" });
     </script>
 </head>
 <body>
     <div id="headerDiv"></div>
-    <!--<h1>TypeScript HTML App</h1>
-    <div id="content"></div>-->
-    <center id="content">
-        <img src="image1.jpg" />
-        <img src="image2.jpg" />
-        <img src="image3.jpg" />
-        <img src="image4.jpg" />
-        <img src="image5.jpg" />
+    <center>
+        <div style="max-width:1280px; text-align:left">
+            <h3>Welcome to the Circles-of-Life homepage.</h3>
+            <p>
+                Please view the <a href="about.html">About</a> page to read information on who I am and why I draw these circles.  You can see
+                drawings that are for sale on the <a href="gallery.html">Product Gallery</a> page. I am selling these drawings as greeting cards (6in square),
+                11in x 11in prints, and 18in x 18in prints.  You can order them as uncolored prints or colored prints.  To see some of the
+                coloring options, please view the <a href="testimonials.html">User Gallery</a> page.  Please indicate in the PayPal comment section how
+                you would like a print colored (this will be after you checkout, but before you verify the order on the PayPal website).  Otherwise, artistic license applies ;)
+            </p>
+            <p>Please note that all of the images shared on this site have watermarks.  The print that you receive will <b>not</b> have the grid and spiral watermark.</p>
+            <p>11 x 11 black and white coloring pages and cards are 1 for $5, 3 for $12, or 6 in an artist folder for $25.</p>
+            <p>18 x 18 posters and 11 x 11 colored prints are 1 for $15, 2 for $25, 3 for $30 and 18 x18 colored prints are $30.</p>
+            <p>The 11 x 11's are on #100 pound cardstock and the cards are on #60 cardstock.</p>
+            </p>
+        </div>
     </center>
-
-    <div class="accordion">
-        <ul>
-            <li background="image1.jpg">
-                <div>
-                    <a href="#">
-                        <h2>01 - Zentangle Tribute</h2>
-                        <p>There can be only one and thus it was and shall now always be known as the first for that is when it was and that is when it is.</p>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a href="#">
-                        <h2>02 - Spring Storm</h2>
-                        <p>Sometimes it rains in the spring.</p>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a href="#">
-                        <h2>03 - Octopus Dance</h2>
-                        <p>It involves a lot of stepping on things squishy.</p>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a href="#">
-                        <h2>04 - Oceans Echoes</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                    </a>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <a href="#">
-                        <h2>05 - Kelp Dance</h2>
-                        <p>This is some fish and kelp and stuff cus I'm artzy and whatnots with water things that some people call mariene life but I say more like MARLEENE LIFE yak yak yak</p>
-                    </a>
-                </div>
-            </li>
-        </ul>
-    </div>
-
-    <!-- Start VisualLightBox.com BODY section id=1 -->
-    <div id="vlightbox1" align="center">
-        <a class="vlightbox1" href="image1.jpg" title="Summer Fruits"><img src="image1.jpg" alt="Summer Fruits" /></a>
-        <a class="vlightbox1" href="image2.jpg" title="Five strawberies one star"><img src="image2.jpg" alt="Five strawberies one star" /></a>
-        <a class="vlightbox1" href="image3.jpg" title="Fruit of the season"><img src="image3.jpg" alt="Fruit of the season" /></a>
-        <a class="vlightbox1" href="image4.jpg" title="Bright fruit"><img src="image4.jpg" alt="Bright fruit" /></a>
-        <a class="vlightbox1" href="image5.jpg" title="The velvety looking peaches and the shiny strawberries."><img src="image5.jpg" alt="The velvety looking peaches and the shiny strawberries." /></a>
-        <a class="vlb" href="http://visuallightbox.com">lightbox jquery</a>
-    </div>
-    <script src="http://visuallightbox.com/images/demo/dominion/index_files/vlb_engine/vlbdata1.js" type="text/javascript"></script>
-    <!-- End VisualLightBox.com BODY section -->
 </body>
 </html>

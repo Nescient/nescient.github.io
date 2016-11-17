@@ -11,21 +11,14 @@
         $(function () {
             // source: http://stackoverflow.com/a/9003363
             $("#headerDiv").load("header.html", function () {
-                $("#viewCart > .simpleCart_quantity").text(simpleCart.quantity().toString());
+                $("#viewCart > span").text("$" + simpleCart.grandTotal().toString());
             });
         });
-        simpleCart({
-            checkout: {
-                type: "PayPal",
-                email: "antimetabole-facilitator@gmail.com",
-                sandbox: true
-            },
-            cartStyle: "table"
-        });
+        simpleCart({ cartStyle: "table" });
     </script>
 </head>
 <body>
     <div id="headerDiv"></div>
-    <h1>This site is under construction.</h1>
+    <h1>This site is still under construction.  Please pardon the mess.</h1>
 </body>
 </html>

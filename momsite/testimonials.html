@@ -12,16 +12,10 @@
         $(function () {
             // source: http://stackoverflow.com/a/9003363
             $("#headerDiv").load("header.html", function () {
-                $("#viewCart > .simpleCart_quantity").text(simpleCart.quantity().toString());
+                $("#viewCart > span").text("$" + simpleCart.grandTotal().toString());
             });
         });
-        simpleCart({
-            checkout: {
-                type: "PayPal",
-                email: "antimetabole-facilitator@gmail.com"
-            },
-            cartStyle: "table"
-        });
+        simpleCart({ cartStyle: "table" });
     </script>
 </head>
 <body>
@@ -104,7 +98,7 @@
     $("#detailsdiv > div.description").load(img.getDescriptionFileName() + " .MsoNormal",
         function (resp, status) {
             if (status == "error") {
-                $("#detailsdiv > h1").text("Testimonial Image " + id.toString());
+                $("#detailsdiv > h1").text("Colored Image " + id.toString());
                 $("#detailsdiv > div.description").remove();
             }
             else {

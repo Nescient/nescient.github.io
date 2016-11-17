@@ -14,25 +14,22 @@
         $(function () {
             // source: http://stackoverflow.com/a/9003363
             $("#headerDiv").load("header.html", function () {
-                $("#viewCart > .simpleCart_quantity").text(simpleCart.quantity().toString());
+                $("#viewCart > span").text("$" + simpleCart.grandTotal().toString());
             });
         });
-        simpleCart({
-            checkout: {
-                type: "PayPal",
-                email: "antimetabole-facilitator@gmail.com",
-                sandbox: true
-            },
-            cartStyle: "table"
-        });
+        simpleCart({ cartStyle: "table" });
 
         simpleCart.bind('beforeAdd', function (item) {
             if (item.get("type") == "Card") {
-                item.price(5.99);
+                item.price(5);
             } else if (item.get("type") == "Medium Print") {
-                item.price(35.99);
+                item.price(5);
             } else if (item.get("type") == "Large Print") {
-                item.price(123.99);
+                item.price(15);
+            } else if (item.get("type") == "Medium Print Colored") {
+                item.price(15);
+            } else if (item.get("type") == "Large Print Colored") {
+                item.price(30);
             }
         });
     </script>
@@ -49,13 +46,16 @@
                 <div class="simpleCart_shelfItem">
                     <p>
                         <select class="item_type" style="background:black; color:white">
-                            <option value="Card"> Card for <span class="item_price">$5.99</span> </option>
-                            <option value="Medium Print"> 11x11 Print for <span class="item_price">$35.99</span> </option>
-                            <option value="Large Print"> 18x18 Print for <span class="item_price">$123.99</span> </option>
+                            <option value="Card"> Card for <span class="item_price">$5.00</span> </option>
+                            <option value="Medium Print"> 11x11 Print for <span class="item_price">$5.00</span> </option>
+                            <option value="Large Print"> 18x18 Print for <span class="item_price">$15.00</span> </option>
+                            <option value="Medium Print Colored"> 11x11 Colored Print for <span class="item_price">$15.00</span> </option>
+                            <option value="Large Print Colored"> 18x18 Colored Print for <span class="item_price">$30.00</span> </option>
                         </select>
                         <input style="background:black; color:white; max-width: 50px" value="1" class="item_Quantity" type="number" min="1" max="100">
                         <a style="color:white" class="item_add" href="javascript:;"> Add to Cart </a>
                     </p>
+                    <img style="display:none" class="item_image">
                     <h1 class="item_name">Image Title</h1>
                 </div>
                 <div style="text-align: left" class="description">Image Description</div>
@@ -120,6 +120,7 @@
     img_el.src = img.getImageFileName();
     img_el.alt = "gallery image " + id.toString();
     $("#centerimage").append(img_el);
+    $("#detailsdiv img.item_image").attr("src", img.getImageFileName());
 
     /* load the description for the current image */
     $("#detailsdiv > div.description").load(img.getDescriptionFileName() + " .MsoNormal",
@@ -158,13 +159,27 @@
     });
 
     /* set up the shopping cart */
-    //simpleCart({
-    //    checkout: {
-    //        type: "PayPal",
-    //        email: "you@yours.com"
-    //    },
-    //    cartStyle: "table"
-    //});
+    $("#detailsdiv a.item_add").click(function () {
+        var old_image = $("#centerimage img");
+        var new_image = old_image.clone();
+        old_image.css("visibility", "hidden");
+        $("#centerimage").append(new_image);
+
+        new_image.css({ position: "absolute" });
+        new_image.css(old_image.offset());
+
+        new_image.animate({
+            opacity: 0.25,
+            left: "+=1055",
+            top: "-=40",
+            height: "toggle"
+        }, 1000, function () {
+            new_image.remove();
+            old_image.css("visibility", "visible");
+        });
+
+    });
+
 
 </script>
 </html>

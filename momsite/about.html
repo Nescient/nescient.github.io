@@ -11,21 +11,68 @@
         $(function () {
             // source: http://stackoverflow.com/a/9003363
             $("#headerDiv").load("header.html", function () {
-                $("#viewCart > .simpleCart_quantity").text(simpleCart.quantity().toString());
+                $("#viewCart > span").text("$" + simpleCart.grandTotal().toString());
             });
         });
-        simpleCart({
-            checkout: {
-                type: "PayPal",
-                email: "antimetabole-facilitator@gmail.com",
-                sandbox: true
-            },
-            cartStyle: "table"
-        });
+        simpleCart({ cartStyle: "table" });
     </script>
 </head>
 <body>
     <div id="headerDiv"></div>
-    <h1>This site is under construction.</h1>
+
+    <center>
+        <div style="max-width:1280px; text-align:left">
+
+            <img src="bitz.jpg" alt="My Headshot!" align="left" />
+            <div style="margin: 10px; padding:10px;">
+                <p class=MsoNormal>
+                    <span style='font-size:12.0pt;line-height:115%'>
+                        Thank you
+                        for checking out my webpage!
+                    </span>
+                </p>
+
+                <p class=MsoNormal>
+                    <span style='font-size:12.0pt;line-height:115%'>
+                        A little
+                        about myself--I’m a wife, mom, Oma, former teacher in the Syracuse City School
+                        District and former Associate Curator of Education at the Everson Museum of Art.
+                        I sometimes teach Visual Thinking Strategies, an amazing approach to improving
+                        critical thinking, language, and social skills, in schools and museums around
+                        the country.  Now that I’m retired I love to babysit my grandchildren, travel, and
+                        DO ART!
+                    </span>
+                </p>
+
+                <p class=MsoNormal>
+                    <span style='font-size:12.0pt;line-height:115%'>
+                        I also love
+                        God and have a strong desire to help those who are persecuted and oppressed. I
+                        heard Christine Caine speak about the work of The A21 Campaign to end human
+                        trafficking in the 21<sup>st</sup> century; and I knew I had to do something to
+                        help.  I prayed for a way to support this work and amazingly God has set me on
+                        this path of creating <i>Circles of Life</i>—mandalas that joyfully represent His
+                        creative hand in our world. I am committed to donating at least 20% of all
+                        sales to A21. I love the beautiful collaboration of my line drawings and your
+                        coloring choices. Lots of people have mentioned the calming, therapeutic nature
+                        of coloring these Circles of Life. I’m thankful that we can work together to
+                        end human trafficking and create things of beauty.
+                    </span>
+                </p>
+
+                <p class=MsoNormal>
+                    <span style='font-size:12.0pt;line-height:115%'>
+                        I do <b>
+                            COLORING
+                            PARTIES
+                        </b>—teaching color theory and giving coloring tips to help people enjoy
+                        their art more. I also give information about human trafficking and can’t help
+                        but share the God behind my art.  I can do these workshops at your home, civic
+                        organization, or church. For more information, please <a href="contact.html">call or e-mail</a>.
+                    </span>
+                </p>
+            </div>
+        </div>
+        </center>
 </body>
 </html>

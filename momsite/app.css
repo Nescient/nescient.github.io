@@ -113,6 +113,10 @@ body {
     margin-right: auto;
 }
 
+    body a {
+        color: white;
+    }
+
 /*span {
     font-style: italic;
 }*/
@@ -383,14 +387,14 @@ h1 {
     padding: 5px;
 }
 
-.itemRow td {
-    padding: 10px;
-}
+    .itemRow td {
+        padding: 10px;
+    }
 
-.itemRow td a {
-    color:white;
-}
+        .itemRow td a {
+            color: white;
+        }
 
-.itemRow td input {
-    max-width: 30px;
-}
+        .itemRow td input {
+            max-width: 30px;
+        }

@@ -11,21 +11,19 @@
         $(function () {
             // source: http://stackoverflow.com/a/9003363
             $("#headerDiv").load("header.html", function () {
-                $("#viewCart > .simpleCart_quantity").text(simpleCart.quantity().toString());
+                $("#viewCart > span").text("$" + simpleCart.grandTotal().toString());
             });
         });
-        simpleCart({
-            checkout: {
-                type: "PayPal",
-                email: "antimetabole-facilitator@gmail.com",
-                sandbox: true
-            },
-            cartStyle: "table"
-        });
+        simpleCart({ cartStyle: "table" });
     </script>
 </head>
 <body>
     <div id="headerDiv"></div>
-    <h1>This site is under construction.</h1>
+    <center>
+        <div style="max-width:1280px; text-align:center">
+            <h2>If you notice a technical issue with the website, please file a new ticket on <a href="https://github.com/Nescient/momsite/issues/new">github</a>.</h2>
+            <h2>Otherwise, please contact Bitz <a href="mailto:someone@example.com?Subject=Circles-of-Life%20Comment" target="_top">directly</a> with comments, questions, and concerns.</h2>
+        </div>
+    </center>
 </body>
 </html>

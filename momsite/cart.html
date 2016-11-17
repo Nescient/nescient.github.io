@@ -21,10 +21,19 @@
                 type: "PayPal",
                 email: "antimetabole-facilitator@gmail.com",
                 sandbox: true,
-                success: "cart.html?order=complete",
-                cancel: "cart.html"
+                uccess: "http://circles-of-life.com/cart.html?order=complete",
+                cancel: "http://circles-of-life.com/cart.html",
             },
-            cartStyle: "table"
+            cartStyle: "table",
+            shippingFlatRate: 5,
+            extra_data: {
+                storename: "Bob's cool plumbing store",
+                cartid: "12321321",
+                commut: function () {
+                    return "hello" + document.getElementById("comments").value;;
+                }
+            },
+            data: {test: "this is a test"},
         });
     </script>
 </head>
@@ -34,13 +43,12 @@
 
 
     <center>
-        <div style="max-width:1280px">
+        <div style="max-width:700px">
             <div style="float:left"><strong>Items: </strong><span class="simpleCart_quantity"></span></div>
             <div style="float:right"><strong>Total: </strong><span class="simpleCart_total"></span></div>
-
             <a href="javascript:;" class="simpleCart_empty" style="color:white">Empty Cart</a>
 
-            <div class="simpleCart_items"></div>
+            <div class="simpleCart_items" style="width: 100%"></div>
 
             <div id="emptyCartDisplay" style="display:none">
                 <h1>Your Shopping Cart is empty.</h1>
@@ -49,7 +57,8 @@
             <!--<ul id="cartList">
                 <li>some stuff</li>
             </ul>-->
-            <div style="margin: 10px"><strong>Grand Total:</strong> <span class="simpleCart_grandTotal"></span></div>
+            <div style="margin: 10px; width: 100%; text-align:right">Shipping: <span class="simpleCart_shipping"></span></div>
+            <div style="margin: 10px; width: 100%; text-align:right"><strong>Grand Total:</strong> <span class="simpleCart_grandTotal"></span></div>
             <!--<a href="javascript:;" class="simpleCart_checkout">Checkout</a>-->
             <!--<form id="contact" method="post" action="" style="margin:10px">
                 <fieldset>
@@ -66,7 +75,12 @@
                 </fieldset>
             </form>
             <span class="checkout_btn">Send Order</span>-->
-            <a style="color:white" href="javascript:;" class="simpleCart_checkout">Checkout</a>
+            <div style="margin: 20px; display:none">
+                <textarea style="width:100%; background: black; color:white;" placeholder="Write some optional comments about your order." id="comments"></textarea>
+            </div>
+            <div>
+                <a style="text-decoration: none; padding: 5px; color:black; line-height: 150%; font-size: 150%; background: white; border-radius: 50px;" href="javascript:;" class="simpleCart_checkout">Checkout</a>
+            </div>
         </div>
     </center>
     <!--<div></div>
@@ -112,61 +126,61 @@
     //    $("#cartList").append(li_el);
     //});
 
+    //simpleCart({
+    //    //Setting the Cart Columns for the sidebar cart display.
+    //    cartColumns: [
+    //    //{ attr: "image", label: false, view: "image"},
+
+    //    //Name of the item
+    //    { attr: "name", label: "Item" },
+
+    //    { attr: "type", label: false },
+
+    //    //Quantity displayed as an input
+    //    { attr: "quantity", label: "Quantity", view: "input" },
+
+    //    //Built in view for a remove link
+    //    { view: 'remove', text: "X", label: "Del" },
+
+    //    //Price of item
+    //    //{ attr: "price", label: "Price", view: "currency"},
+
+    //    //Subtotal of that row (quantity of that item * the price)
+    //    { attr: "total", label: "Sub-Total", view: "currency" }
+
+    //    ],
+    //});
+
     simpleCart({
-        //Setting the Cart Columns for the sidebar cart display.
         cartColumns: [
-        //{ attr: "image", label: false, view: "image"},
-
-        //Name of the item
-        { attr: "name", label: "Item" },
-
-        { attr: "type", label: false },
-
-        //Quantity displayed as an input
-        { attr: "quantity", label: "Quantity", view: "input" },
-
-        //Built in view for a remove link
-        { view: 'remove', text: "X", label: "Del" },
-
-        //Price of item
-        //{ attr: "price", label: "Price", view: "currency"},
-
-        //Subtotal of that row (quantity of that item * the price)
-        { attr: "total", label: "Sub-Total", view: "currency" }
-
+            { attr: "name", label: "Name" },
+            { attr: "type", label: false },
+            { attr: "price", label: "Price", view: 'currency' },
+            { view: "decrement", label: false, text: "-" },
+            { attr: "quantity", label: "Qty" },
+            { view: "increment", label: false, text: "+" },
+            { attr: "total", label: "SubTotal", view: 'currency' },
+            { view: "remove", text: "Remove", label: false }
         ],
-        cartStyle: "table",
+
         checkout: {
             type: "PayPal",
             email: "antimetabole-facilitator@gmail.com",
-            sandbox: true
-        }
-        //checkout: {
-        //    type: "SendForm",
-        //    url: "http://www.w3schools.com/tags/demo_form_method_post.asp",
-        //    method: "POST",
-        //    success: "success.html",
-        //    cancel: "cancel.php",
-        //    extra_data: {
-        //        first_name: document.getElementById("first_name").value,
-        //        last_name: document.getElementById("last_name").value,
-        //        email: document.getElementById("email").value,
-        //        email: document.getElementById("phone").value,
-        //        email: document.getElementById("comments").value,
-        //        cartid: "12321321"
-        //    }
-
-        //}
-
+            sandbox: true,
+            uccess: "http://circles-of-life.com/cart.html?order=complete",
+            cancel: "http://circles-of-life.com/cart.html",
+        },
+        cartStyle: "table",
+        shippingFlatRate: 5,
+        extra_data: {
+            storename: "Bob's cool plumbing store",
+            cartid: "12321321",
+            commut: function () {
+                return "hello" + document.getElementById("comments").value;;
+            }
+        },
+        data: { test: "this is a test" }
     });
-
-    //simpleCart.bind('beforeCheckout', function (data) {
-    //    data.first_name = document.getElementById("first_name").value;
-    //    data.last_name = document.getElementById("last_name").value;
-    //    data.email = document.getElementById("email").value;
-    //    data.phone = document.getElementById("phone").value;
-    //    data.comments = document.getElementById("comments").value;
-    //});
 
     /* if the cart is empty */
     simpleCart.bind('update', function () {
@@ -174,10 +188,12 @@
             //alert(simpleCart.quantity())
             $(".simpleCart_items").hide();
             $("#emptyCartDisplay").show();
+            $(".simpleCart_checkout").hide();
         }
         else {
             $(".simpleCart_items").show();
             $("#emptyCartDisplay").hide();
+            $(".simpleCart_checkout").show();
         }
     });
 </script>
