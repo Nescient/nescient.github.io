@@ -54,8 +54,13 @@
                         </select>
                         <input style="background:black; color:white; max-width: 50px; font-size: 110%" value="1" class="item_Quantity" type="number" min="1" max="100">
                         <a style="margin-top: 10px; border-radius: 5px; padding: 5px; color:black; font-size: 110%; background: white; text-decoration: none" class="item_add" href="javascript:;"> Add to Cart </a>
+                        <div style="max-width: 500px">
+                            <a onclick="$('#detailsdiv textarea.item_comment').show(); $(this).hide()" href="javascript:;">Click here to add a comment <b>before</b> placing the item in your cart.</a>
+                            <textarea class="item_comment" style="width:100%; background: black; color:white; display: none" placeholder="Write some comments about this item (max 199 characters)." maxlength="199"></textarea>
+                        </div>
                     </p>
-                    <img style="display:none" class="item_image">
+                    <!--<img style="display:none" class="item_image">-->
+
                     <h1 class="item_name">Image Title</h1>
                 </div>
                 <div style="text-align: left; margin: 10px; padding:10px;" class="description">Image Description</div>

@@ -33,7 +33,7 @@
                     return "hello" + document.getElementById("comments").value;;
                 }
             },
-            data: {test: "this is a test"},
+            data: { test: "this is a test" },
         });
     </script>
 </head>
@@ -43,7 +43,7 @@
 
 
     <center>
-        <div style="max-width:700px">
+        <div style="max-width:800px">
             <div style="float:left"><strong>Items: </strong><span class="simpleCart_quantity"></span></div>
             <div style="float:right"><strong>Total: </strong><span class="simpleCart_total"></span></div>
             <a href="javascript:;" class="simpleCart_empty" style="color:white">Empty Cart</a>
@@ -160,7 +160,8 @@
             { attr: "quantity", label: "Qty" },
             { view: "increment", label: false, text: "+" },
             { attr: "total", label: "SubTotal", view: 'currency' },
-            { view: "remove", text: "Remove", label: false }
+            { view: "remove", text: "Remove", label: false },
+        { attr: "comment", label: "Comments" }
         ],
 
         checkout: {
@@ -196,5 +197,16 @@
             $(".simpleCart_checkout").show();
         }
     });
+
+    /* add comments */
+    //$("div.simpleCart_items tr:first").append("<td>Comments</td>");
+    //simpleCart.each(function (item, x) {
+        ///items.push(item.name);
+    //});
+    //$("div.simpleCart_items td.item-comment").each(function (index, element) {
+    ////    alert(index);
+    //    console.log(index.toString())
+    //    $(this).append($('<textarea style="width:100%; background: black; color:white;" placeholder="Write some optional comments about this item."></textarea>'));
+    //});
 </script>
 </html>
